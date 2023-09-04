@@ -1,16 +1,18 @@
 //SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 import "@api3/airnode-protocol/contracts/rrp/requesters/RrpRequesterV0.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title Example contract that uses Airnode RRP to receive QRNG services
 /// @notice This contract is not secure. Do not use it in production. Refer to
 /// the contract for more information.
 /// @dev See README.md for more information.
-contract QrngExample is RrpRequesterV0 {
+contract QrngExample is RrpRequesterV0, Ownable {
     event RequestedUint256(bytes32 indexed requestId);
     event ReceivedUint256(bytes32 indexed requestId, uint256 response);
     event RequestedUint256Array(bytes32 indexed requestId, uint256 size);
     event ReceivedUint256Array(bytes32 indexed requestId, uint256[] response);
+    event WithdrawalRequested(address indexed airnode, address indexed sponsorWallet);
 
     // These variables can also be declared as `constant`/`immutable`.
     // However, this would mean that they would not be updatable.
@@ -51,6 +53,12 @@ contract QrngExample is RrpRequesterV0 {
         endpointIdUint256 = _endpointIdUint256;
         endpointIdUint256Array = _endpointIdUint256Array;
         sponsorWallet = _sponsorWallet;
+    }
+
+    // To receive funds from the sponsor wallet and send them to the owner.
+    receive() external payable {
+        payable(owner()).transfer(address(this).balance);
+        emit WithdrawalRequested(airnode, sponsorWallet);
     }
 
     /// @notice Requests a `uint256`
@@ -128,5 +136,13 @@ contract QrngExample is RrpRequesterV0 {
         uint256[] memory qrngUint256Array = abi.decode(data, (uint256[]));
         // Do what you want with `qrngUint256Array` here...
         emit ReceivedUint256Array(requestId, qrngUint256Array);
+    }
+
+    // To withdraw funds from the sponsor wallet to the contract.
+    function withdraw(address airnode, address sponsorWallet) external onlyOwner {
+        airnodeRrp.requestWithdrawal(
+        airnode,
+        sponsorWallet
+        );
     }
 }

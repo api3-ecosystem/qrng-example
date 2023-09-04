@@ -12,6 +12,7 @@
     "fund": "hardhat deploy --tags fund --network $NETWORK",
     "request:uint256": "hardhat run scripts/requestUint256.js --network $NETWORK",
     "request:uint256-array": "hardhat run scripts/requestUint256Array.js --network $NETWORK",
+    "request:withdrawal": "hardhat run scripts/requestWithdrawal.js --network $NETWORK",
     "prettier": "prettier --write \"./**/*.{json,js,md,sol}\""
   },
   "devDependencies": {
