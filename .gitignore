@@ -3,5 +3,5 @@ node_modules
 artifacts
 cache
 deployments
-
+notes.md
 **/credentials.json

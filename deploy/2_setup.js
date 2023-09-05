@@ -20,11 +20,13 @@ module.exports = async () => {
   );
 
   // Set the parameters that will be used to make Airnode requests
+  // gasLimit is set to 500000 for Base 
   const receipt = await qrngExample.setRequestParameters(
     apiData.airnode,
     apiData.endpointIdUint256,
     apiData.endpointIdUint256Array,
-    sponsorWalletAddress
+    sponsorWalletAddress,
+    {gasLimit: 500000}
   );
   console.log('Setting request parameters...');
   await new Promise((resolve) =>

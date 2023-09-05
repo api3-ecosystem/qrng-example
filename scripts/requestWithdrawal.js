@@ -14,7 +14,7 @@ async function main() {
       );
 
     // Request withdrawal...
-    const receipt = await qrngExample.withdraw(airnodeAddress, sponsorWalletAddress);
+    const receipt = await qrngExample.withdraw(airnodeAddress, sponsorWalletAddress, {gasLimit: 500000});
     console.log('Created a withdrawal transaction, waiting for it to be confirmed...');
     // wait for the transaction to be confirmed.
 

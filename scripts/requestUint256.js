@@ -5,7 +5,8 @@ async function main() {
   const qrngExample = new hre.ethers.Contract(QrngExample.address, QrngExample.abi, (await hre.ethers.getSigners())[0]);
 
   // Make a request...
-  const receipt = await qrngExample.makeRequestUint256();
+  // Adding a custom gasLimit to test Base
+  const receipt = await qrngExample.makeRequestUint256({gasLimit: 500000});
   console.log('Created a request transaction, waiting for it to be confirmed...');
   // and read the logs once it gets confirmed to get the request ID
   const requestId = await new Promise((resolve) =>
