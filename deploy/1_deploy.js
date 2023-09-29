@@ -9,6 +9,7 @@ module.exports = async () => {
   // airnodeProtocol.AirnodeRrpAddresses[await hre.getChainId()];
   // base: 0xa0AD79D995DdeeB18a14eAef56A549A04e3Aa1Bd
   // mantle: 0xa0AD79D995DdeeB18a14eAef56A549A04e3Aa1Bd
+  // polygon-zkevm: 
 
   const qrngExample = await hre.deployments.deploy('QrngExample', {
     args: [airnodeRrpAddress],

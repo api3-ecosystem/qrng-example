@@ -19,6 +19,7 @@ const amounts = {
   base: { value: 0.01, unit: 'ETH' },
   mantle: { value: 10.00, unit: 'MNT' },
   linea: { value: 0.01, unit: 'ETH' },
+  'polygon-zkevm': { value: 0.01, unit: 'ETH' },
   goerli: { value: 0.1, unit: 'ETH' },
   sepolia: { value: 0.05, unit: 'SEP' },
   'rsk-testnet': { value: 0.001, unit: 'RBTC' },
